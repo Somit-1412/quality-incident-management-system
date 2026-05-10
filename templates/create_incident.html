@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-3">
+    Create Incident
+</h3>
+
+<form method="POST">
+
+    <input
+        type="text"
+        name="title"
+        placeholder="Incident Title"
+        class="form-control mb-3"
+    >
+
+    <select
+        name="severity"
+        class="form-control mb-3"
+    >
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+        <option>Critical</option>
+    </select>
+
+    <button class="btn btn-primary">
+        Create Incident
+    </button>
+
+</form>
+
+{% endblock %}
