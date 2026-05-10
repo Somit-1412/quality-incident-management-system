@@ -30,7 +30,7 @@ class ActivityLog(db.Model):
 
     timestamp = db.Column(
         db.DateTime,
-        default=datetime.now(timezone.utc)
+        default=lambda: datetime.now(timezone.utc)
     )
 
 @app.route('/')
@@ -134,6 +134,17 @@ def update_status(id, new_status):
     flash(f'Status updated to {new_status}.')
 
     return redirect(url_for('home'))
+
+@app.route('/logs')
+def view_logs():
+    logs = ActivityLog.query.order_by(
+        ActivityLog.timestamp.desc()
+    ).all()
+
+    return render_template(
+        'logs.html',
+        logs=logs
+    )
 
 if __name__ == '__main__':
 

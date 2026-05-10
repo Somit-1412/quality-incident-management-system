@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-3">
+    Activity Logs
+</h3>
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>Incident ID</th>
+        <th>Action</th>
+        <th>Timestamp</th>
+    </tr>
+
+    {% for log in logs %}
+
+    <tr>
+
+        <td>{{ log.incident_id }}</td>
+
+        <td>{{ log.action }}</td>
+
+        <td>{{ log.timestamp.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}
