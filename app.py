@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timezone
+import time
 
 app = Flask(__name__)
 
@@ -36,7 +37,25 @@ class ActivityLog(db.Model):
 @app.route('/')
 def home():
 
-    incidents = Incident.query.all()
+    severity = request.args.get('severity')
+
+    status = request.args.get('status')
+
+    query = Incident.query
+
+    if severity:
+
+        query = query.filter_by(
+            severity=severity
+        )
+
+    if status:
+
+        query = query.filter_by(
+            status=status
+        )
+
+    incidents = query.all()
 
     return render_template(
         'index.html',
@@ -68,6 +87,10 @@ def create_incident():
         if duplicate:
             flash('Incident already exists!')
             return redirect(url_for('create_incident'))
+
+        # Resilience Simulation
+        if severity == 'Critical':
+            time.sleep(3)
 
         incident = Incident(
             title=title,
