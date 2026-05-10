@@ -169,6 +169,65 @@ def view_logs():
         logs=logs
     )
 
+@app.route('/reports')
+def reports():
+     total_incidents = Incident.query.count()
+
+     closed_incidents = Incident.query.filter_by(
+        status='Closed'
+        ).count()
+
+     open_incidents = total_incidents - closed_incidents
+
+     critical_count = Incident.query.filter_by(
+        severity='Critical'
+        ).count()
+
+     high_count = Incident.query.filter_by(
+        severity='High'
+        ).count()
+
+     medium_count = Incident.query.filter_by(
+        severity='Medium'
+        ).count()
+
+     low_count = Incident.query.filter_by(
+        severity='Low'
+        ).count()
+
+     return render_template(
+        'reports.html',
+
+        total_incidents=total_incidents,
+
+        closed_incidents=closed_incidents,
+
+        open_incidents=open_incidents,
+
+        critical_count=critical_count,
+
+        high_count=high_count,
+
+        medium_count=medium_count,
+
+        low_count=low_count
+    )
+
+@app.route('/incident/<int:id>')
+def incident_detail(id):
+
+    incident = Incident.query.get_or_404(id)
+
+    logs = ActivityLog.query.filter_by(
+        incident_id = id
+    ).all()
+
+    return render_template(
+        'incident_detail.html',
+        incident=incident,
+        logs=logs
+    )
+
 if __name__ == '__main__':
 
     with app.app_context():

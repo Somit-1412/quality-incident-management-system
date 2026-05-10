@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4">
+    Incident Reports Dashboard
+</h3>
+
+<div class="row">
+
+    <div class="col-md-3">
+
+        <div class="card text-center p-3 mb-3">
+
+            <h5>Total Incidents</h5>
+
+            <h2>{{ total_incidents }}</h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center p-3 mb-3">
+
+            <h5>Open Incidents</h5>
+
+            <h2>{{ open_incidents }}</h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card text-center p-3 mb-3">
+
+            <h5>Closed Incidents</h5>
+
+            <h2>{{ closed_incidents }}</h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<h4 class="mb-3">
+    Severity Distribution
+</h4>
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>Severity</th>
+        <th>Count</th>
+    </tr>
+
+    <tr>
+        <td>Critical</td>
+        <td>{{ critical_count }}</td>
+    </tr>
+
+    <tr>
+        <td>High</td>
+        <td>{{ high_count }}</td>
+    </tr>
+
+    <tr>
+        <td>Medium</td>
+        <td>{{ medium_count }}</td>
+    </tr>
+
+    <tr>
+        <td>Low</td>
+        <td>{{ low_count }}</td>
+    </tr>
+
+</table>
+
+{% endblock %}

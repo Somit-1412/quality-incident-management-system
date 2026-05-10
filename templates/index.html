@@ -62,6 +62,7 @@
         <th>Role</th>
         <th>Status</th>
         <th>Action</th>
+        <th>View</th>
     </tr>
 
     {% for incident in incidents %}
@@ -69,11 +70,70 @@
     <tr>
         <td>{{ incident.id }}</td>
         <td>{{ incident.title }}</td>
-        <td>{{ incident.severity }}</td>
-        <td>{{ incident.role }}</td>
-        <td>{{ incident.status }}</td>
         <td>
+            {% if incident.severity == 'Low' %}
 
+                <span class="badge bg-success">
+                    Low
+                </span>
+
+            {% elif incident.severity == 'Medium' %}
+
+                <span class="badge bg-warning text-dark">
+                    Medium
+                </span>
+
+            {% elif incident.severity == 'High' %}
+
+                <span class="badge bg-danger">
+                    High
+                </span>
+
+            {% elif incident.severity == 'Critical' %}
+
+                <span class="badge bg-dark">
+                    Critical
+                </span>
+
+            {% endif %}
+
+        </td>
+        <td>{{ incident.role }}</td>
+        <td>
+            {% if incident.status == 'New' %}
+
+                <span class="badge bg-secondary">
+                    New
+                </span>
+
+            {% elif incident.status == 'In Review' %}
+
+                <span class="badge bg-warning text-dark">
+                    In Review
+                </span>
+
+            {% elif incident.status == 'Assigned' %}
+
+                <span class="badge bg-info text-dark">
+                    Assigned
+                </span>
+
+            {% elif incident.status == 'Resolved' %}
+
+                <span class="badge bg-primary">
+                    Resolved
+                </span>
+
+            {% elif incident.status == 'Closed' %}
+
+                <span class="badge bg-success">
+                    Closed
+                </span>
+
+            {% endif %}
+
+        </td>
+        <td>
             {% if incident.status == 'New' %}
 
                 <a
@@ -117,6 +177,15 @@
                 </span>
 
             {% endif %}
+
+        </td>
+        <td>
+            <a
+                href="/incident/{{ incident.id }}"
+                class="btn btn-dark btn-sm"
+            >
+                View
+            </a>
 
         </td>
     </tr>

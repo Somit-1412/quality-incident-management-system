@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4">
+    Incident Details
+</h3>
+
+<div class="card p-4 mb-4">
+
+    <h4>{{ incident.title }}</h4>
+
+    <p>
+        <strong>Severity:</strong>
+        {{ incident.severity }}
+    </p>
+
+    <p>
+        <strong>Role:</strong>
+        {{ incident.role }}
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        {{ incident.status }}
+    </p>
+
+</div>
+
+<h4 class="mb-3">
+    Incident Activity History
+</h4>
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>Action</th>
+        <th>Timestamp</th>
+    </tr>
+
+    {% for log in logs %}
+
+    <tr>
+
+        <td>{{ log.action }}</td>
+
+        <td>
+            {{ log.timestamp.strftime('%d-%m-%Y %H:%M:%S') }}
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}
